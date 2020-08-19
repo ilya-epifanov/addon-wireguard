@@ -1,11 +1,12 @@
 {
-  "name": "WireGuard",
+  "name": "WireGuard (host)",
   "version": "dev",
-  "slug": "wireguard",
+  "slug": "wireguard-host",
   "description": "Fast, modern, secure VPN tunnel",
-  "url": "https://github.com/hassio-addons/addon-wireguard",
+  "url": "https://github.com/ilya-epifanov/addon-wireguard",
   "startup": "application",
   "arch": ["aarch64", "amd64", "armhf", "armv7", "i386"],
+  "image": "smartislav/{arch}-addon-wireguard-host",
   "init": false,
   "ports": {
     "80/tcp": null,

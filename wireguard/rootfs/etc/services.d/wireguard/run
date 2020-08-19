@@ -9,9 +9,8 @@ s6-svc -O /var/run/s6/services/wireguard
 
 bashio::log.info "Starting WireGuard..."
 
-# This is alpha software. We need to set this to instruct
-# WireGuard we are OK to go.
-export WG_I_PREFER_BUGGY_USERSPACE_TO_POLISHED_KMOD=1
+export WG_QUICK_USERSPACE_IMPLEMENTATION=boringtun
+export WG_SUDO=1
 
 # Get the interface
 interface="wg0"
@@ -20,4 +19,12 @@ if bashio::config.has_value "server.interface"; then
 fi
 
 # Run the WireGuard
-exec wg-quick up "${interface}"
+trap "wg-quick down ${interface}; exit" INT TERM EXIT
+ip link delete "${interface}" || true
+wg-quick up "${interface}"
+
+while true; do
+    sleep 30
+    bashio::log.info "Requesting current status from WireGuard..."
+    wg show
+done
