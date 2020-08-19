@@ -21,6 +21,7 @@
   "privileged": ["NET_ADMIN"],
   "devices": ["/dev/net/tun:/dev/net/tun:rwm"],
   "map": ["ssl:rw"],
+  "host_network": true,
   "options": {
     "server": {
       "host": "myautomatedhome.duckdns.org",
